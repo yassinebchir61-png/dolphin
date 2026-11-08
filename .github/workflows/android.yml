@@ -23,6 +23,10 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
 
+      - name: Accept Android SDK licenses
+        run: |
+          yes | /usr/local/lib/android/sdk/cmdline-tools/latest/bin/sdkmanager --licenses
+
       - name: Set up Android SDK
         uses: android-actions/setup-android@v3
 
@@ -37,5 +41,5 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: Dolphin-Android-APK
-          path: Source/Android/app/build/outputs/apk/**/*.apk
+          path: Source/Android/**/build/outputs/apk/**/*.apk
           if-no-files-found: error
