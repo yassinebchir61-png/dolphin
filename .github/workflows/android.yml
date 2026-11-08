@@ -1,4 +1,3 @@
-
 name: Android CI
 
 on:
@@ -32,14 +31,13 @@ jobs:
       - name: Grant execute permission
         run: chmod +x Source/Android/gradlew
 
-      - name: Build Android APK
+      - name: Build signed Debug APK
         working-directory: Source/Android
-        run: ./gradlew assembleRelease
+        run: ./gradlew assembleDebug
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
           name: Dolphin-Android-APK
-          path: Source/Android/app/build/outputs/apk/**/*.apk
+          path: Source/Android/**/build/outputs/apk/debug/*.apk
           if-no-files-found: error
-          
