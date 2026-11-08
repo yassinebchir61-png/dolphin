@@ -269,21 +269,25 @@ class InputOverlay(context: Context?, attrs: AttributeSet?) : SurfaceView(contex
         }
 
         for (joystick in overlayJoysticks) {
-            if (joystick.trackEvent(event)) {
-                if (joystick.trackId != -1)
-                    pressed = true
-            }
+    if (joystick.trackEvent(event)) {
+        if (joystick.trackId != -1)
+            pressed = true
+    }
 
-            InputOverrider.setControlState(
-                controllerIndex,
-                joystick.xControl,
-                joystick.x.toDouble()
-            )
-            InputOverrider.setControlState(
-                controllerIndex,
-                joystick.yControl,
-                -joystick.y.toDouble()
-            )
+    InputOverrider.setControlState(
+        controllerIndex,
+        joystick.xControl,
+        if (joystick.xControl == ControlId.GCPAD_C_STICK_X)
+            -joystick.x.toDouble()
+        else
+            joystick.x.toDouble()
+    )
+
+    InputOverrider.setControlState(
+        controllerIndex,
+        joystick.yControl,
+        -joystick.y.toDouble()
+    )
         }
 
         // No button/joystick pressed, safe to move pointer
